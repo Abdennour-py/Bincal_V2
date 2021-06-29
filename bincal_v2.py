@@ -1,28 +1,33 @@
-def Number():
-    choice = input('(1) Binary To Dicimal (2) Dicimal To Binary :')
+Choice = input('Binary Addition (1) Binary Subtraction (2) :')
 
-    if choice == '1':
-        binary = input('Enter Binary Number :')
-        decimal = 0
-        for digit in binary:
-            decimal = decimal*2 + int(digit)
-        print(decimal)
-    
-    elif choice == '2':
-        n=int(input('Enter Dicimal Number : '))
+if Choice == '1':
+    #Binary Addition :
+    def Binary_Add():
+        a = input('Enter Binary Number (1) :')
+        b = input('Enter Binary Number (2) :')
+        max_len = max(len(a), len(b))
+        a = a.zfill(max_len)
+        b = b.zfill(max_len)
         
-        k=[]
-        while (n>0):
-            a=int(float(n%2))
-            k.append(a)
-            n=(n-a)/2
-        k.append(0)
-        string=""
-        for j in k[::-1]:
-            string=string+str(j)
-        print(string)     
+        # Initialize the result
+        result = ''
+        
+        # Initialize the carry
+        carry = 0
+        
+        # Traverse the string
+        for i in range(max_len - 1, -1, -1):
+            r = carry
+            r += 1 if a[i] == '1' else 0
+            r += 1 if b[i] == '1' else 0
+            result = ('1' if r % 2 == 1 else '0') + result
+        
+            # Compute the carry.
+            carry = 0 if r < 2 else 1
+        
+        if carry != 0:
+            result = '1' + result
+        
+        print(result.zfill(max_len))
 
-    else:
-        print("Your Command Dose not Exist..? PLease Try Again")
-        Number()
-Number()
+Binary_Add()
